@@ -5,17 +5,14 @@ def generate_email(data):
     email_content = ""
     
     for article in data:
-        try:
-            title = (article["title"] + "\n")
-            text = article["description"] + "\n"
-            url = article["url"]  + '\n'
-            author = article["author"] + '\n'
-        except: 
-            "Missing content for this email"
+        title =  (article.get("title") or "No Title") + '\n'                 #(article["title"] + "\n")
+        text = (article.get("description") or "No description") + '\n'       #article["description"] + "\n"
+        url = (article.get("url" or "No url")) + '\n'                        #article["url"]  + '\n'
+        author = (article.get("author") or "Unknown Author")  + '\n'
 
         email_content += title
         email_content += author
-        email_content + text
+        email_content += text
         email_content+= url
         email_content += '\n\n'
 
@@ -36,6 +33,6 @@ def send_email(email_content, password):
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
             smtp.login(sender_email, password)
             smtp.send_message(msg)
-        print("Email sent succesfully")
+        print("Email sent succesfully ✅")
     except Exception as e:
         print(f"Error: {e}")
