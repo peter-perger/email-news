@@ -1,5 +1,5 @@
 from langchain.chat_models import init_chat_model 
-from functions import generate_articles, send_email
+from functions import generate_articles, get_title_url, send_email
 from dotenv import load_dotenv
 import requests
 import os
@@ -32,4 +32,9 @@ Here are the artciles: {articles}
 response = model.invoke(prompt)
 response_string = response.content[0]["text"]
 
-send_email(response_string, email_password)
+title_url_string = get_title_url(data)
+
+email_content = f"{response_string} '\n \n {title_url_string}"
+
+
+send_email(email_content, email_password)

@@ -17,6 +17,18 @@ def generate_articles(data):
         article_content += '\n\n'
 
     return(article_content)
+
+def get_title_url(data):
+    text = ""
+    
+    for article in data['articles']:
+        title =  (article.get("title") or "No title for this article")
+        url = (article.get("url") or "No url for this article") + '\n' 
+
+        text += title + "\n"
+        text += url + '\n'
+
+    return text
         
 def send_email(email_content, password):
     sender_email = "pergerpeti2@gmail.com"
