@@ -1,23 +1,22 @@
 from email.message import EmailMessage
 import smtplib
 
-def generate_email(data):
-    email_content = ""
+def generate_articles(data):
+    article_content = ""
     
-    for article in data:
-        title =  (article.get("title") or "No Title") + '\n'                 #(article["title"] + "\n")
-        text = (article.get("description") or "No description") + '\n'       #article["description"] + "\n"
-        url = (article.get("url" or "No url")) + '\n'                        #article["url"]  + '\n'
-        author = (article.get("author") or "Unknown Author")  + '\n'
+    for article in data['articles']:
+        title =  (article.get("title") or "No title for this article")                  
+        text = (article.get("description") or "No description for this article") + '\n'       
+        url = (article.get("url") or "No url for this article") + '\n'                        
+        author = (article.get("author") or "No auhtor for this article") + '\n'
 
-        email_content += title
-        email_content += author
-        email_content += text
-        email_content+= url
-        email_content += '\n\n'
+        article_content += title
+        article_content += author
+        article_content += text
+        article_content+= url
+        article_content += '\n\n'
 
-    
-    return(email_content)
+    return(article_content)
         
 def send_email(email_content, password):
     sender_email = "pergerpeti2@gmail.com"
